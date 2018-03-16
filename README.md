@@ -1,4 +1,4 @@
-# grunt-bust-my-cache
+# grunt-bust-cache-variable
 
 > Bust static assets from the cache using date.now() along with the ability to target specific files. 
 
@@ -11,13 +11,13 @@ This plugin requires Grunt `~0.4.2`
 If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 
 ```shell
-npm install grunt-bust-my-cache --save-dev
+npm install grunt-bust-cache-variable --save-dev
 ```
 
 Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
 
 ```js
-grunt.loadNpmTasks('grunt-bust-my-cache');
+grunt.loadNpmTasks('grunt-bust-cache-variable');
 ```
 
 If the plugin has been installed correctly, running `grunt --help` at the command line should list the newly-installed plugin's task or tasks. In addition, the plugin should be listed in package.json as a `devDependency`, which ensures that it will be installed whenever the `npm install` command is run.
