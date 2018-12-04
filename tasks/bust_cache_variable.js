@@ -1,7 +1,7 @@
 /*
  Based on https://github.com/hollandben/grunt-cache-bust by Ben Holland. Added options to filter which file gets updated.
  grunt-bust-my-cache
- 
+
  https://github.com/victsant/grunt-bust-my-cache
  *
  * Copyright (c) 2017 Victor Santana
@@ -12,57 +12,57 @@
 
 module.exports = function(grunt) {
 
-    var fs      = require('fs');
-    var path    = require('path');
-    var crypto = require('crypto')
-    
-    var remoteRegex    = /http:|https:|\/\/|data:image/;
-    var extensionRegex = /(\.[a-zA-Z]{2,4})(|\?.*)$/;
+  var crypto = require('crypto')
+  var LineByLineReader = require('line-by-line');
+  var options = {
+    baseDir: './',
+    filter: '',
+    fileType: ''
+  };
 
-    var regexEscape = function(str) {
-        return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
-    };
+  grunt.file.defaultEncoding = options.encoding;
 
-    var cheerioOptions = {
-        ignoreWhitespace: true,
-        lowerCaseTags: true
-    };
+  grunt.registerMultiTask('bustCacheVariable', 'Bust static variable from the cache using content md5 hash', function() {
 
-    var options = {
-        baseDir: './',
-        filter: '',
-        fileType : ''
-    };
- 
-    grunt.file.defaultEncoding = options.encoding;
+    var opts = grunt.util._.defaults(this.options(), options);
 
-    grunt.registerMultiTask('bustCacheVariable', 'Bust static assets from the cache using content hashing', function() {
-
-        var opts = grunt.util._.defaults(this.options(), options);
-
-        this.files.forEach(function(f) {
-            var src = f.src.filter(function(filepath) {
-                // Warn on and remove invalid source files (if nonull was set).
-                if (!grunt.file.exists(filepath)) {
-                    grunt.log.warn('Source file "' + filepath + '" not found.');
-                    return false;
-                } else {
-                    return true;
-                }
-            }).map(function(filepath) {
-                var markup = grunt.file.read(filepath);
-                var hash = crypto.createHash('md5').update(markup).digest("hex")
-
-                var variable = '?' + opts.filter;
-                var index = markup.indexOf(variable);
-                var length = index + opts.filter.length + 34;
-                var cache = markup.substring(index, length);
-                markup = markup.replace(cache, '?' + opts.filter + '=' + hash);
-                
-               grunt.file.write(filepath, markup);
-                grunt.log.writeln('Variable ' + opts.filter + ' was busted!');
+    this.files.forEach(function(f) {
+      var src = f.src.filter(function(filepath) {
+        // Warn on and remove invalid source files (if nonull was set).
+        if (!grunt.file.exists(filepath)) {
+          grunt.log.warn('Source file "' + filepath + '" not found.');
+          return false;
+        } else {
+          return true;
+        }
+      }).map(function(filepath) {
+        var markup = grunt.file.read(filepath);
+        var fileContents = markup.split('\n');
+        var hash = crypto.createHash('md5').update(markup).digest("hex");
+        var hashValue = '';
+        var variableLine = '<c:set var="' + opts.filter + '"';
+        fileContents.forEach(function(line) {
+					line.includes(variableLine)
+          if (line.includes(variableLine)) {
+            var variableArr = line.split(variableLine);
+            variableArr.forEach(function(vline) {
+              if (vline.includes('value=')) {
+                hashValue = vline.split('"');
+                hashValue = hashValue[1];
+              }
             });
+          }
         });
+
+				if(hashValue){
+					markup = markup.replace(hashValue, hash);
+					grunt.file.write(filepath, markup);
+					grunt.log.writeln('Variable ' + opts.filter + ' was busted!');
+				}else{
+					grunt.fail.warn('Please add cache variable for ' + opts.filter + ' it is missing and the cache will not clear!!!');
+				}
+      });
     });
+  });
 
 };
