@@ -33,7 +33,9 @@
     "grunt-contrib-jshint": "~0.6.0",
     "grunt-contrib-nodeunit": "~0.2.0",
     "grunt-contrib-watch": "~0.5.3",
-    "line-by-line": "^0.1.6"
+    "line-by-line": "^0.1.6",
+    "minimatch": ">=3.0.2",
+    "lodash": ">=4.17.5"
   },
   "peerDependencies": {
     "grunt": "~0.4.2"
