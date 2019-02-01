@@ -2,7 +2,7 @@
  * grunt-bust-my-cache
  * https://github.com/victsant/grunt-bust-cache-variable
  *
- * Copyright (c) 2016 Victor Santana
+ * Copyright (c) 2019 Victor Santana
  * Licensed under the MIT license.
  */
 
@@ -73,11 +73,12 @@ module.exports = function(grunt) {
   // Load this plugins tasks
   grunt.loadTasks('tasks');
 
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-copy');
-  grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.loadNpmTasks('grunt-contrib-nodeunit');
-  grunt.loadNpmTasks('grunt-contrib-watch');
+	require('load-grunt-tasks')(grunt, {
+		pattern: ['grunt-contrib-*'],
+    config: './package.json',
+    scope: 'devDependencies',
+		requireResolution: true
+	});
 
   // grunt.registerTask('default', ['clean', 'copy', 'bustCacheVariable:filterTest']);
 

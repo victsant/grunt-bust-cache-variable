@@ -26,18 +26,19 @@
   "scripts": {
     "test": "grunt travis --verbose"
   },
-  "dependencies": {
-    "line-by-line": "^0.1.6",
-    "lodash": "^4.17.11",
-    "minimatch": ">=3.0.4"
-  },
   "devDependencies": {
+    "crypto": "^1.0.1",
     "grunt": "^1.0.3",
     "grunt-contrib-clean": "^2.0.0",
     "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-jshint": "^2.0.0",
     "grunt-contrib-nodeunit": "^2.0.0",
-    "grunt-contrib-watch": "^1.1.0"
+    "grunt-contrib-watch": "^1.1.0",
+    "line-by-line": "^0.1.6",
+    "load-grunt-tasks": "^4.0.0",
+    "lodash": "^4.17.11",
+    "minimatch": "^3.0.4",
+    "path": "^0.12.7"
   },
   "peerDependencies": {
     "grunt": "^1.0.3"

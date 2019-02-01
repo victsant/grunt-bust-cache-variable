@@ -4,7 +4,7 @@
 
  https://github.com/victsant/grunt-bust-my-cache
  *
- * Copyright (c) 2017 Victor Santana
+ * Copyright (c) 2019 Victor Santana
  * Licensed under the MIT license.
  */
 
@@ -13,19 +13,16 @@
 module.exports = function(grunt) {
 
   var crypto = require('crypto')
-  var LineByLineReader = require('line-by-line');
   var options = {
     baseDir: './',
     filter: '',
     fileType: ''
   };
 
-  grunt.file.defaultEncoding = options.encoding;
-
   grunt.registerMultiTask('bustCacheVariable', 'Bust static variable from the cache using content md5 hash', function() {
 
     var opts = grunt.util._.defaults(this.options(), options);
-
+		
     this.files.forEach(function(f) {
       var src = f.src.filter(function(filepath) {
         // Warn on and remove invalid source files (if nonull was set).
@@ -36,7 +33,10 @@ module.exports = function(grunt) {
           return true;
         }
       }).map(function(filepath) {
-        var markup = grunt.file.read(filepath);
+				var options = {
+					encoding: 'utf-8'
+				};
+        var markup = grunt.file.read(filepath, options);
         var fileContents = markup.split('\n');
         var hash = crypto.createHash('md5').update(markup).digest("hex");
         var hashValue = '';
