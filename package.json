@@ -1,7 +1,7 @@
 {
   "name": "grunt-bust-cache-variable",
   "description": "Bust static assets from the cache using date.now(). Can also filter a specific file to be cache busted.",
-  "version": "0.1.9",
+  "version": "0.2.0",
   "homepage": "https://github.com/victsant/grunt-bust-cache-variable",
   "author": {
     "name": "victsant",
@@ -21,26 +21,26 @@
     }
   ],
   "engines": {
-    "node": ">= 0.8.0"
+    "node": ">= 0.10.0"
   },
   "scripts": {
     "test": "grunt travis --verbose"
   },
   "dependencies": {
     "line-by-line": "^0.1.6",
-    "minimatch": ">=3.0.2",
-    "lodash": ">=4.17.5"
+    "lodash": "^4.17.11",
+    "minimatch": ">=3.0.4"
   },
   "devDependencies": {
-    "grunt": "~0.4.2",
-    "grunt-contrib-clean": "~0.4.0",
-    "grunt-contrib-copy": "~0.4.1",
-    "grunt-contrib-jshint": "~0.6.0",
-    "grunt-contrib-nodeunit": "~0.2.0",
-    "grunt-contrib-watch": "~0.5.3"
+    "grunt": "^1.0.3",
+    "grunt-contrib-clean": "^2.0.0",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-jshint": "^2.0.0",
+    "grunt-contrib-nodeunit": "^2.0.0",
+    "grunt-contrib-watch": "^1.1.0"
   },
   "peerDependencies": {
-    "grunt": "~0.4.2"
+    "grunt": "^1.0.3"
   },
   "keywords": [
     "gruntplugin"
